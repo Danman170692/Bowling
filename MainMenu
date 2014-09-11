@@ -1,0 +1,134 @@
+using UnityEngine;
+using System.Collections;
+using System.Text.RegularExpressions;
+public class MainMenu : MonoBehaviour {
+	string players = "";
+	string PlayerOneName = "";
+	string PlayerTwoName = "";
+	string PlayerThreeName = "";
+	string PlayerFourName = "";
+	string PlayerFiveName = "";
+	string PlayerSixName = "";
+	string PlayerSevenName = "";
+	string PlayerEightName = "";
+
+
+
+
+	int StringToIntPlayers;
+	bool MainMenuGui = true;
+	bool NumberOfPlayersGui = false;
+	bool PlayerNameGui = false;
+
+	void start(){
+
+	}
+
+
+	void OnGUI () {
+
+
+		//main menu
+				if (MainMenuGui) {
+						// Make a background box
+						GUI.Box (new Rect (10, 10, 100, 130), "Main Menu");
+		
+						// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
+						if (GUI.Button (new Rect (20, 40, 80, 20), "Start Game")) {
+				MainMenuGui = false;
+				NumberOfPlayersGui = true;
+
+								
+						}
+		
+						// Make the second button.
+						if (GUI.Button (new Rect (20, 70, 80, 20), "Load Game")) {
+							
+						}
+
+						if (GUI.Button (new Rect (20, 100, 80, 20), "HighScores")) {
+								
+
+						}
+				}
+		//Number of players
+		if (NumberOfPlayersGui) {
+
+			GUI.Label(new Rect(10,10,200,20), "Enter Number Of Players (Max 8)");
+			players = GUI.TextArea (new Rect (10,30,200,20), players, 1);
+			players = Regex.Replace (players, "[^1-8]", "");
+			
+			if(GUI.Button(new Rect(10,60,80,20), "Confirm")) {
+
+				if(players == ""){
+
+				}
+				else {
+					NumberOfPlayersGui = false;
+					
+					int.TryParse(players, out StringToIntPlayers);
+					PlayerNameGui = true;
+				}
+
+
+			}
+
+
+				}
+
+		if (PlayerNameGui) {
+			
+			GUI.Label(new Rect(10,10,250,20), "Enter Player Names (Max 20 Characters)");
+			int CountToPlayers = 1;
+			int GuiAdjustment = 0;
+
+			while(CountToPlayers <= StringToIntPlayers){
+				GUI.Label(new Rect(10,40 + GuiAdjustment,200,20), "Player " + CountToPlayers + " Name");
+
+				if (CountToPlayers == 1){
+					PlayerOneName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerOneName, 20);
+				}
+				if (CountToPlayers == 2){
+					PlayerTwoName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerTwoName, 20);
+				}
+				if (CountToPlayers == 3){
+					PlayerThreeName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerThreeName, 20);
+				}
+				if (CountToPlayers == 4){
+					PlayerFourName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerFourName, 20);
+				}
+				if (CountToPlayers == 5){
+					PlayerFiveName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerFiveName, 20);
+				}
+				if (CountToPlayers == 6){
+					PlayerSixName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerSixName, 20);
+				}
+				if (CountToPlayers == 7){
+					PlayerSevenName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerSevenName, 20);
+				}
+				if (CountToPlayers == 8){
+					PlayerEightName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerEightName, 20);
+				}
+				
+				
+				
+				CountToPlayers++;
+				GuiAdjustment = GuiAdjustment + 30;
+			}
+
+			if(GUI.Button(new Rect(10,60 + GuiAdjustment,80,20), "Confirm")) {
+				PlayerNameGui = false;
+
+
+			}
+
+			
+			
+		}
+			
+
+
+		}
+}
+
+
