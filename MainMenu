@@ -11,18 +11,28 @@ public class MainMenu : MonoBehaviour {
 	string PlayerSixName = "";
 	string PlayerSevenName = "";
 	string PlayerEightName = "";
-	string ThisVariable = "";
+	public int xCoord;
 
 
 
-	int StringToIntPlayers;
+static int StringToIntPlayers;
 	bool MainMenuGui = true;
 	bool NumberOfPlayersGui = false;
 	bool PlayerNameGui = false;
+	bool ScoreCardGui = false;
+	bool highScoreGui = false;
 
 	void start(){
 
 	}
+
+	void Update() {
+		if (Input.GetKey("escape"))
+			Application.Quit();
+		
+	}
+
+
 
 
 	void OnGUI () {
@@ -43,11 +53,17 @@ public class MainMenu : MonoBehaviour {
 		
 						// Make the second button.
 						if (GUI.Button (new Rect (20, 70, 80, 20), "Load Game")) {
-							
+
+			
+				LoadScoreCards(PlayerPrefs.GetInt("NumberOfPlayers"));
+				MainMenuGui = false;
+
 						}
 
 						if (GUI.Button (new Rect (20, 100, 80, 20), "HighScores")) {
 								
+								highScoreGui = true;
+								MainMenuGui = false;
 
 						}
 				}
@@ -87,6 +103,7 @@ public class MainMenu : MonoBehaviour {
 
 				if (CountToPlayers == 1){
 					PlayerOneName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerOneName, 20);
+
 				}
 				if (CountToPlayers == 2){
 					PlayerTwoName = GUI.TextArea (new Rect (120,40 + GuiAdjustment,200,20), PlayerTwoName, 20);
@@ -118,17 +135,218 @@ public class MainMenu : MonoBehaviour {
 
 			if(GUI.Button(new Rect(10,60 + GuiAdjustment,80,20), "Confirm")) {
 				PlayerNameGui = false;
+				ScoreCardGui = true;
+				PlayerPrefs.SetInt("NumberOfPlayers", StringToIntPlayers);
+				DisplayScoreCards(StringToIntPlayers);
+
 
 
 			}
 
+
 			
 			
 		}
+
+		if (ScoreCardGui) {
+			DisplayPlayerNames(StringToIntPlayers);
+
+
+			//continue from here
+				}
+
+
+		if (highScoreGui) {
+
+			GUI.Box (new Rect (10, 10, 200, 240), "HighScores");
+
+			GUI.Label(new Rect(20,30,100,20), PlayerPrefs.GetString("PlayerNameHighScoreOne"));
+			GUI.Label(new Rect(110,30,100,20), PlayerPrefs.GetString("PlayerOneHighScore"));
+
+			GUI.Label(new Rect(20,50,100,20), PlayerPrefs.GetString("PlayerNameHighScoreTwo"));
+			GUI.Label(new Rect(110,50,100,20), PlayerPrefs.GetString("PlayerTwoHighScore"));
+
+			GUI.Label(new Rect(20,70,100,20), PlayerPrefs.GetString("PlayerNameHighScoreThree"));
+			GUI.Label(new Rect(110,70,100,20), PlayerPrefs.GetString("PlayerThreeHighScore"));
+
+			GUI.Label(new Rect(20,90,100,20), PlayerPrefs.GetString("PlayerNameHighScoreFour"));
+			GUI.Label(new Rect(110,90,100,20), PlayerPrefs.GetString("PlayerFourHighScore"));
+
+			GUI.Label(new Rect(20,110,100,20), PlayerPrefs.GetString("PlayerNameHighScoreFive"));
+			GUI.Label(new Rect(110,110,100,20), PlayerPrefs.GetString("PlayerFiveHighScore"));
+
+			GUI.Label(new Rect(20,130,100,20), PlayerPrefs.GetString("PlayerNameHighScoreSix"));
+			GUI.Label(new Rect(110,130,100,20), PlayerPrefs.GetString("PlayerSixHighScore"));
+
+			GUI.Label(new Rect(20,150,100,20), PlayerPrefs.GetString("PlayerNameHighScoreSeven"));
+			GUI.Label(new Rect(110,150,100,20), PlayerPrefs.GetString("PlayerSevenHighScore"));
+
+			GUI.Label(new Rect(20,170,100,20), PlayerPrefs.GetString("PlayerNameHighScoreEight"));
+			GUI.Label(new Rect(110,170,100,20), PlayerPrefs.GetString("PlayerEightHighScore"));
+
+			GUI.Label(new Rect(20,190,100,20), PlayerPrefs.GetString("PlayerNameHighScoreNine"));
+			GUI.Label(new Rect(110,190,100,20), PlayerPrefs.GetString("PlayerNineHighScore"));
+
+			GUI.Label(new Rect(20,210,100,20), PlayerPrefs.GetString("PlayerNameHighScoreTen"));
+			GUI.Label(new Rect(110,210,100,20), PlayerPrefs.GetString("PlayerTenHighScore"));
+
+			if(GUI.Button(new Rect(10,230,80,20), "Back")) {
+
+				highScoreGui = false;
+				MainMenuGui = true;
+
+			}
+
+
+				}
 			
 
 
 		}
+
+		
+
+	void DisplayScoreCards(int players){
+		int CountToPlayers = 1;
+		GameObject scoreCard;
+	
+		while (CountToPlayers <= players) {
+			scoreCard = GameObject.Find ("ScoreCard Player " + CountToPlayers);
+			scoreCard.guiTexture.enabled = true;
+
+			//scoreCard.GetComponent<CalculateScore>().enabled = true;
+
+			if(CountToPlayers == 1){
+				scoreCard.GetComponent<CalculateScore>().enabled = true;
+			}
+			if(CountToPlayers == 2){
+				scoreCard.GetComponent<CalculateScorePlayerTwo>().enabled = true;
+			}
+			if(CountToPlayers == 3){
+				scoreCard.GetComponent<CalculateScorePlayerThree>().enabled = true;
+			}
+			if(CountToPlayers == 4){
+				scoreCard.GetComponent<CalculateScorePlayerFour>().enabled = true;
+			}
+			if(CountToPlayers == 5){
+				scoreCard.GetComponent<CalculateScorePlayerFive>().enabled = true;
+			}
+			if(CountToPlayers == 6){
+				scoreCard.GetComponent<CalculateScorePlayerSix>().enabled = true;
+			}
+			if(CountToPlayers == 7){
+				scoreCard.GetComponent<CalculateScorePlayerSeven>().enabled = true;
+			}		
+			if(CountToPlayers == 8){
+				scoreCard.GetComponent<CalculateScorePlayerEight>().enabled = true;
+			}
+
+
+
+
+			CountToPlayers++;
+				}
+
+
+	}
+
+	void LoadScoreCards(int players){
+
+		int CountToPlayers = 1;
+		GameObject scoreCard;
+		
+		while (CountToPlayers <= players) {
+			scoreCard = GameObject.Find ("ScoreCard Player " + CountToPlayers);
+			scoreCard.guiTexture.enabled = true;
+		
+			
+			//scoreCard.GetComponent<LoadGame>().enabled = true;
+		
+			if(CountToPlayers == 1){
+				scoreCard.GetComponent<LoadGame>().enabled = true;
+			}
+
+			if(CountToPlayers == 2){
+				scoreCard.GetComponent<LoadGamePlayerTwo>().enabled = true;
+			}
+			if(CountToPlayers == 3){
+				scoreCard.GetComponent<LoadGamePlayerThree>().enabled = true;
+			}
+			if(CountToPlayers == 4){
+				scoreCard.GetComponent<LoadGamePlayerFour>().enabled = true;
+			}
+			if(CountToPlayers == 5){
+				scoreCard.GetComponent<LoadGamePlayerFive>().enabled = true;
+			}
+			if(CountToPlayers == 6){
+				scoreCard.GetComponent<LoadGamePlayerSix>().enabled = true;
+			}
+			if(CountToPlayers == 7){
+				scoreCard.GetComponent<LoadGamePlayerSeven>().enabled = true;
+			}
+			if(CountToPlayers == 8){
+				scoreCard.GetComponent<LoadGamePlayerEight>().enabled = true;
+			}
+			
+			CountToPlayers++;
+		}
+
+		}
+
+
+	void DisplayPlayerNames(int players){
+	int CountToPlayers = 1;
+	int GuiAdjustment = 0;
+	
+	while(CountToPlayers <= players){
+		
+		
+		if (CountToPlayers == 1){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerOneName);
+		}
+		if (CountToPlayers == 2){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerTwoName);
+		}
+		if (CountToPlayers == 3){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerThreeName);
+		}
+		if (CountToPlayers == 4){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerFourName);
+		}
+		if (CountToPlayers == 5){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerFiveName);
+		}
+		if (CountToPlayers == 6){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerSixName);
+		}
+		if (CountToPlayers == 7){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerSevenName);
+		}
+		if (CountToPlayers == 8){
+				GUI.Label(new Rect (xCoord,50 + GuiAdjustment,200,20), PlayerEightName);
+		}
+		
+		
+		
+		CountToPlayers++;
+		GuiAdjustment = GuiAdjustment + 90;
+	}
+
+		PlayerPrefs.SetString ("PlayerOneName", PlayerOneName);
+		PlayerPrefs.SetString ("PlayerTwoName", PlayerTwoName);
+		PlayerPrefs.SetString ("PlayerThreeName", PlayerThreeName);
+		PlayerPrefs.SetString ("PlayerFourName", PlayerFourName);
+		PlayerPrefs.SetString ("PlayerFiveName", PlayerFiveName);
+		PlayerPrefs.SetString ("PlayerSixName", PlayerSixName);
+		PlayerPrefs.SetString ("PlayerSevenName", PlayerSevenName);
+		PlayerPrefs.SetString ("PlayerEightName", PlayerEightName);
+;
+
+
+
+
+
 }
 
+}
 
