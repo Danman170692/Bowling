@@ -1,0 +1,607 @@
+using UnityEngine;
+using System.Collections;
+
+public class CalculateScore : MonoBehaviour {
+	private int[] bowlOneArray;
+	private int[] bowlTwoArray;
+	private int[] bowlTotal;
+	string bowlOne = "";
+	string bowlTwo = "";
+	int bowlOneInt;
+	int bowlTwoInt;
+	bool scoreOne = true;
+	bool scoreTwo = false;
+	int frame = 1;
+	int spareCalc;
+	public int xCoord;
+	public int yCoord;
+	public int scoreXCoord;
+	public int scoreYCoord;
+	string frameOneBowlOne;
+	string frameOneBowlTwo;
+	string frameTwoBowlOne;
+	string frameTwoBowlTwo;
+	string frameThreeBowlOne;
+	string frameThreeBowlTwo;
+	string frameFourBowlOne;
+	string frameFourBowlTwo;
+	string frameFiveBowlOne;
+	string frameFiveBowlTwo;
+	string frameSixBowlOne;
+	string frameSixBowlTwo;
+	string frameSevenBowlOne;
+	string frameSevenBowlTwo;
+	string frameEightBowlOne;
+	string frameEightBowlTwo;
+	string frameNineBowlOne;
+	string frameNineBowlTwo;
+	string frameTenBowlOne;
+	string frameTenBowlTwo;
+	string bowlTotalFrameOne;
+	string bowlTotalFrameTwo;
+	string bowlTotalFrameThree;
+	string bowlTotalFrameFour;
+	string bowlTotalFrameFive;
+	string bowlTotalFrameSix;
+	string bowlTotalFrameSeven;
+	string bowlTotalFrameEight;
+	string bowlTotalFrameNine;
+	string bowlTotalFrameTen;
+
+
+
+	// Use this for initialization
+	void Start () {
+		bowlOneArray = new int[11];
+		bowlTwoArray = new int[11];
+		bowlTotal = new int[11];
+
+	
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+	void OnGUI () {
+		CreateScoreLabels ();
+		if (scoreOne) {
+			// Make a background box
+			if(frame < 11){
+			GUI.Box (new Rect (xCoord, yCoord, 270, 80), "Enter 1st Bowl");
+
+			}
+
+			if(frame == 11){
+				GUI.Box (new Rect (xCoord, yCoord, 130, 90), "Enter Last 1st Bowl");
+			}
+			
+			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
+			
+			
+			bowlOne = GUI.TextArea(new Rect (xCoord + 110,yCoord + 30, 40, 20), bowlOne);
+
+			
+			// Make the second button.
+			if (GUI.Button (new Rect (xCoord + 10,yCoord + 55, 110, 20), "Submit Frame")) {
+
+				if(frame <= 10){
+
+
+				if(bowlOne == "10"){
+
+					Debug.Log ("value is 10");
+					Score(10, 0, frame);
+						DisplayScore(frame);
+					frame++;
+					scoreOne = true;
+					scoreTwo = false;
+					bowlOne = "";
+				}
+
+				else{
+
+				scoreOne = false;
+				scoreTwo = true;
+
+				}
+
+
+				
+			}
+			
+				if(frame == 11){
+
+
+
+					if(bowlOne == "10"){
+						
+						Debug.Log ("value is 10");
+
+
+					
+						scoreOne = false;
+						scoreTwo = true;
+						bowlOne = "";
+					}
+
+
+
+				}
+
+
+			}
+
+			if (GUI.Button (new Rect (xCoord + 140,yCoord + 55, 110, 20), "Save Game")) {
+				
+				PlayerPrefs.SetInt("PlayerFrameOneBowlOne", bowlOneArray[0]);
+				PlayerPrefs.SetInt("PlayerFrameOneBowlTwo", bowlTwoArray[0]);
+				PlayerPrefs.SetInt("FrameOneBowlTotal", bowlTotal[0]);
+				
+				PlayerPrefs.SetInt("PlayerFrameTwoBowlOne", bowlOneArray[1]);
+				PlayerPrefs.SetInt("PlayerFrameTwoBowlTwo", bowlTwoArray[1]);
+				PlayerPrefs.SetInt("FrameTwoBowlTotal", bowlTotal[1]);
+				
+				PlayerPrefs.SetInt("PlayerFrameThreeBowlOne", bowlOneArray[2]);
+				PlayerPrefs.SetInt("PlayerFrameThreeBowlTwo", bowlTwoArray[2]);
+				PlayerPrefs.SetInt("FrameThreeBowlTotal", bowlTotal[2]);
+				
+				PlayerPrefs.SetInt("PlayerFrameFourBowlOne", bowlOneArray[3]);
+				PlayerPrefs.SetInt("PlayerFrameFourBowlTwo", bowlTwoArray[3]);
+				PlayerPrefs.SetInt("FrameFourBowlTotal", bowlTotal[3]);
+				
+				PlayerPrefs.SetInt("PlayerFrameFiveBowlOne", bowlOneArray[4]);
+				PlayerPrefs.SetInt("PlayerFrameFiveBowlTwo", bowlTwoArray[4]);
+				PlayerPrefs.SetInt("FrameFiveBowlTotal", bowlTotal[4]);
+				
+				PlayerPrefs.SetInt("PlayerFrameSixBowlOne", bowlOneArray[5]);
+				PlayerPrefs.SetInt("PlayerFrameSixBowlTwo", bowlTwoArray[5]);
+				PlayerPrefs.SetInt("FrameSixBowlTotal", bowlTotal[5]);
+				
+				PlayerPrefs.SetInt("PlayerFrameSevenBowlOne", bowlOneArray[6]);
+				PlayerPrefs.SetInt("PlayerFrameSevenBowlTwo", bowlTwoArray[6]);
+				PlayerPrefs.SetInt("FrameSevenBowlTotal", bowlTotal[6]);
+				
+				PlayerPrefs.SetInt("PlayerFrameEightBowlOne", bowlOneArray[7]);
+				PlayerPrefs.SetInt("PlayerFrameEightBowlTwo", bowlTwoArray[7]);
+				PlayerPrefs.SetInt("FrameEightBowlTotal", bowlTotal[7]);
+				
+				PlayerPrefs.SetInt("PlayerFrameNineBowlOne", bowlOneArray[8]);
+				PlayerPrefs.SetInt("PlayerFrameNineBowlTwo", bowlTwoArray[8]);
+				PlayerPrefs.SetInt("FrameNineBowlTotal", bowlTotal[8]);
+				
+				PlayerPrefs.SetInt("PlayerFrameTenBowlOne", bowlOneArray[9]);
+				PlayerPrefs.SetInt("PlayerFrameTenBowlTwo", bowlTwoArray[9]);
+				PlayerPrefs.SetInt("FrameTenBowlTotal", bowlTotal[9]);
+				
+				PlayerPrefs.SetInt("Frame", frame);
+			}
+			
+		}
+
+		if (scoreTwo) {
+			// Make a background box
+			if(frame < 11){
+				GUI.Box (new Rect (xCoord, yCoord, 270, 80), "Enter 2nd Bowl");
+				
+			}
+			
+			if(frame == 11){
+				GUI.Box (new Rect (xCoord, yCoord, 130, 90), "Enter Last 2nd Bowl");
+			}
+			
+			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
+			
+			
+
+			bowlTwo = GUI.TextArea(new Rect (xCoord + 110,yCoord + 30, 40, 20), bowlTwo);
+			
+			// Make the second button.
+			if (GUI.Button (new Rect (xCoord + 10,yCoord + 55, 110, 20), "Submit Frame")) {
+
+
+
+				
+				int.TryParse (bowlOne, out bowlOneInt);
+				int.TryParse (bowlTwo, out bowlTwoInt);
+
+				if(bowlTwo == "/"){
+					spareCalc = 10 - bowlOneInt;
+					Score(bowlOneInt, spareCalc, frame);
+					DisplayScore(frame);
+					//Debug.Log (bowlTotal[frame - 1]);
+					frame ++;
+					scoreTwo = false;
+					scoreOne = true;
+				}
+
+				if(frame == 11){
+					Score (bowlOneInt, bowlTwoInt, frame);
+					
+					DisplayScore(frame);
+					frame++;
+					scoreTwo = false;
+					scoreOne = false;
+				}
+
+				else{
+
+					Score (bowlOneInt, bowlTwoInt, frame);
+
+					DisplayScore(frame);
+					frame++;
+					scoreTwo = false;
+					scoreOne = true;
+
+
+
+				}
+				
+				
+
+				
+			}
+
+			if (GUI.Button (new Rect (xCoord + 140,yCoord + 55, 110, 20), "Save Game")) {
+
+				PlayerPrefs.SetInt("PlayerFrameOneBowlOne", bowlOneArray[0]);
+				PlayerPrefs.SetInt("PlayerFrameOneBowlTwo", bowlTwoArray[0]);
+				PlayerPrefs.SetInt("FrameOneBowlTotal", bowlTotal[0]);
+
+				PlayerPrefs.SetInt("PlayerFrameTwoBowlOne", bowlOneArray[1]);
+				PlayerPrefs.SetInt("PlayerFrameTwoBowlTwo", bowlTwoArray[1]);
+				PlayerPrefs.SetInt("FrameTwoBowlTotal", bowlTotal[1]);
+
+				PlayerPrefs.SetInt("PlayerFrameThreeBowlOne", bowlOneArray[2]);
+				PlayerPrefs.SetInt("PlayerFrameThreeBowlTwo", bowlTwoArray[2]);
+				PlayerPrefs.SetInt("FrameThreeBowlTotal", bowlTotal[2]);
+
+				PlayerPrefs.SetInt("PlayerFrameFourBowlOne", bowlOneArray[3]);
+				PlayerPrefs.SetInt("PlayerFrameFourBowlTwo", bowlTwoArray[3]);
+				PlayerPrefs.SetInt("FrameFourBowlTotal", bowlTotal[3]);
+
+				PlayerPrefs.SetInt("PlayerFrameFiveBowlOne", bowlOneArray[4]);
+				PlayerPrefs.SetInt("PlayerFrameFiveBowlTwo", bowlTwoArray[4]);
+				PlayerPrefs.SetInt("FrameFiveBowlTotal", bowlTotal[4]);
+
+				PlayerPrefs.SetInt("PlayerFrameSixBowlOne", bowlOneArray[5]);
+				PlayerPrefs.SetInt("PlayerFrameSixBowlTwo", bowlTwoArray[5]);
+				PlayerPrefs.SetInt("FrameSixBowlTotal", bowlTotal[5]);
+
+				PlayerPrefs.SetInt("PlayerFrameSevenBowlOne", bowlOneArray[6]);
+				PlayerPrefs.SetInt("PlayerFrameSevenBowlTwo", bowlTwoArray[6]);
+				PlayerPrefs.SetInt("FrameSevenBowlTotal", bowlTotal[6]);
+
+				PlayerPrefs.SetInt("PlayerFrameEightBowlOne", bowlOneArray[7]);
+				PlayerPrefs.SetInt("PlayerFrameEightBowlTwo", bowlTwoArray[7]);
+				PlayerPrefs.SetInt("FrameEightBowlTotal", bowlTotal[7]);
+
+				PlayerPrefs.SetInt("PlayerFrameNineBowlOne", bowlOneArray[8]);
+				PlayerPrefs.SetInt("PlayerFrameNineBowlTwo", bowlTwoArray[8]);
+				PlayerPrefs.SetInt("FrameNineBowlTotal", bowlTotal[8]);
+
+				PlayerPrefs.SetInt("PlayerFrameTenBowlOne", bowlOneArray[9]);
+				PlayerPrefs.SetInt("PlayerFrameTenBowlTwo", bowlTwoArray[9]);
+				PlayerPrefs.SetInt("FrameTenBowlTotal", bowlTotal[9]);
+
+				PlayerPrefs.SetInt("Frame", frame);
+			}
+			
+		}
+		
+	}
+
+
+
+	void Score(int bowlOne, int bowlTwo, int frame){
+		Debug.Log (frame);
+		int result = bowlOne + bowlTwo;
+		bowlOneArray[frame - 1] = bowlOne;
+		bowlTwoArray[frame - 1] = bowlTwo;
+
+		//start frame = 2
+		if (frame == 2) {
+			Debug.Log("Frame = 2 code");
+
+			if(bowlOneArray[frame - 2] + bowlTwoArray[frame - 2] == 10){
+
+				//strike
+				if(bowlOneArray[frame - 2] == 10){
+					bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+					bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+					Debug.Log (bowlTotal[frame - 1]);
+				}
+				//spare
+				else{
+					Debug.Log("Total before Calculation: " + bowlTotal[frame - 2]);
+					bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1];
+					Debug.Log("Total before Calculation: " + bowlTotal[frame - 2]);
+					bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+					Debug.Log("Total frame score: " + bowlTotal[frame - 1]);
+				}
+			}
+
+			else{
+				Debug.Log ("Frame = 2, Else Code");
+
+				bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+			}
+				}
+		//end frame = 2
+
+
+
+
+
+		if (frame > 2) {
+			Debug.Log("Frame > 2 code");
+
+			//start 3 strike code
+			if(bowlOneArray[frame - 1] + bowlTwoArray[frame - 1] == 10){
+
+				if(bowlOneArray[frame - 3] == 10){
+					Debug.Log ("search for strike");
+
+					if(bowlOneArray[frame - 2] == 10){
+						Debug.Log ("search for two strikes");
+
+
+						if(bowlOneArray[frame - 1] == 10){
+							Debug.Log ("3 strikes");
+							try{
+
+							bowlTotal[frame - 3] = bowlTotal[frame - 4] + 30;
+							bowlTotal[frame - 2] = bowlTotal[frame - 3] + bowlOneArray[frame - 2] + bowlOneArray[frame - 1];
+							bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1];
+								Debug.Log (bowlTotal[frame - 1]);
+
+							}
+
+							catch(System.IndexOutOfRangeException e){
+								Debug.Log("catched");
+								bowlTotal[frame - 3] = 30;
+								bowlTotal[frame - 2] = bowlTotal[frame - 3] + bowlOneArray[frame - 2] + bowlOneArray[frame - 1];
+								bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1];
+								Debug.Log (bowlTotal[frame - 1]);
+
+
+							}
+						
+						}
+
+						else if (bowlOneArray[frame - 2] == 10){
+							Debug.Log ("2 strikes");
+							bowlTotal[frame - 3] = bowlTotal[frame - 3] + bowlOneArray[frame - 2] + bowlOneArray[frame - 1];
+							bowlTotal[frame - 2] = bowlTotal[frame - 3] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+							bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1] + bowlTwoArray[frame - 1];
+							Debug.Log (bowlTotal[frame - 1]);
+
+						}
+
+
+					}
+
+					else{
+						Debug.Log ("1 strike");
+						bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						Debug.Log (bowlTotal[frame - 1]);
+
+					}
+
+				}
+
+			}
+			//end 3 strike code
+
+
+			else if(bowlOneArray[frame - 2] + bowlTwoArray[frame - 2] == 10){
+				Debug.Log ("previous score");
+
+				if(bowlOneArray[frame - 2] == 10){
+
+					if(bowlOneArray[frame - 3] == 10){
+						Debug.Log ("previous strike");
+						//Debug.Log(bowlTotal[frame - 3]);
+						Debug.Log("Total before Calculation: " + bowlTotal[frame - 2]);
+						bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						Debug.Log("Total before Calculation: " + bowlTotal[frame - 2]);
+						bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						Debug.Log(bowlTotal[frame - 1]);
+					}
+
+					else{
+						Debug.Log ("previous strike");
+						//Debug.Log(bowlTotal[frame - 3]);
+						Debug.Log("Total before Calculation: " + bowlTotal[frame - 2]);
+						bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						Debug.Log("Total before Calculation: " + bowlTotal[frame - 2]);
+						bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						Debug.Log(bowlTotal[frame - 1]);
+
+					}
+
+
+
+
+
+
+				}
+
+				else{
+					if(bowlOneArray[frame - 2] + bowlTwoArray[frame - 2] == 10){
+
+						Debug.Log ("previous spare");
+						Debug.Log(bowlTotal[frame - 2]);
+						bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1];
+						Debug.Log(bowlTotal[frame - 2]);
+						bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlTwoArray[frame - 1];
+						Debug.Log(bowlTotal[frame - 1]);
+
+					  }
+
+					else{
+
+						Debug.Log ("previous spare");
+						Debug.Log(bowlTotal[frame - 2]);
+						bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1];
+						Debug.Log(bowlTotal[frame - 2]);
+						bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+						Debug.Log(bowlTotal[frame - 1]);
+
+					}
+
+
+
+				}
+
+			}
+
+
+
+			else{
+				Debug.Log("234e2");
+				bowlTotal[frame - 1] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+				Debug.Log (bowlTotal[frame - 1]);
+
+			}
+
+
+				} 
+
+
+		if (frame == 11) {
+			Debug.Log("frame 10 score");
+			Debug.Log(bowlTotal[frame - 2]);
+			PlayerPrefs.SetInt("PlayerFinalScore", bowlTotal[frame - 2]);
+
+			if(bowlOneArray[frame - 2] + bowlTwoArray[frame - 2] == 10){
+				if(bowlOneArray[frame - 2] == 10){
+
+					bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+					bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlTwoArray[frame - 1];
+
+					Debug.Log("final score strike");
+					Debug.Log(bowlTotal[frame - 2]);
+					PlayerPrefs.SetInt("PlayerFinalScore", bowlTotal[frame - 2]);
+
+
+				}
+
+				else{
+					bowlTotal[frame - 2] = bowlTotal[frame - 2] + bowlOneArray[frame - 1];
+					Debug.Log("final score spare");
+					Debug.Log(bowlTotal[frame - 2]);
+					PlayerPrefs.SetInt("PlayerFinalScore", bowlTotal[frame - 2]);
+
+				}
+
+
+			}
+
+
+
+
+
+		}
+
+
+		else if (frame == 1){
+			Debug.Log("else code");
+			bowlTotal[frame - 1] = bowlOneArray[frame - 1] + bowlTwoArray[frame - 1];
+			Debug.Log (bowlTotal[frame - 1]);
+
+
+				}
+
+
+
+
+
+
+	}
+
+	void CreateScoreLabels(){
+
+		GUI.Label (new Rect(scoreXCoord - 20, scoreYCoord, 100, 100), frameOneBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 5, scoreYCoord, 100, 100), frameOneBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 30, scoreYCoord, 100, 100), frameTwoBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 55, scoreYCoord, 100, 100), frameTwoBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 80, scoreYCoord, 100, 100), frameThreeBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 105, scoreYCoord, 100, 100), frameThreeBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 130, scoreYCoord, 100, 100), frameFourBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 155, scoreYCoord, 100, 100), frameFourBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 180, scoreYCoord, 100, 100), frameFiveBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 205, scoreYCoord, 100, 100), frameFiveBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 230, scoreYCoord, 100, 100), frameSixBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 255, scoreYCoord, 100, 100), frameSixBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 280, scoreYCoord, 100, 100), frameSevenBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 305, scoreYCoord, 100, 100), frameSevenBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 330, scoreYCoord, 100, 100), frameEightBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 355, scoreYCoord, 100, 100), frameEightBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 380, scoreYCoord, 100, 100), frameNineBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 405, scoreYCoord, 100, 100), frameNineBowlTwo);
+		GUI.Label (new Rect(scoreXCoord + 430, scoreYCoord, 100, 100), frameTenBowlOne);
+		GUI.Label (new Rect(scoreXCoord + 455, scoreYCoord, 100, 100), frameTenBowlTwo);
+
+		GUI.Label (new Rect(scoreXCoord - 5, scoreYCoord + 35, 100, 100), bowlTotalFrameOne);
+		GUI.Label (new Rect(scoreXCoord + 45, scoreYCoord + 35, 100, 100), bowlTotalFrameTwo);
+		GUI.Label (new Rect(scoreXCoord + 95, scoreYCoord + 35, 100, 100), bowlTotalFrameThree);
+		GUI.Label (new Rect(scoreXCoord + 145, scoreYCoord + 35, 100, 100), bowlTotalFrameFour);
+		GUI.Label (new Rect(scoreXCoord + 195, scoreYCoord + 35, 100, 100), bowlTotalFrameFive);
+		GUI.Label (new Rect(scoreXCoord + 245, scoreYCoord + 35, 100, 100), bowlTotalFrameSix);
+		GUI.Label (new Rect(scoreXCoord + 295, scoreYCoord + 35, 100, 100), bowlTotalFrameSeven);
+		GUI.Label (new Rect(scoreXCoord + 345, scoreYCoord + 35, 100, 100), bowlTotalFrameEight);
+		GUI.Label (new Rect(scoreXCoord + 395, scoreYCoord + 35, 100, 100), bowlTotalFrameNine);
+		GUI.Label (new Rect(scoreXCoord + 445, scoreYCoord + 35, 100, 100), bowlTotalFrameTen);
+	
+		}
+
+	void DisplayScore(int frame){
+
+
+		frameOneBowlOne = bowlOneArray [0].ToString();
+		frameOneBowlTwo = bowlTwoArray [0].ToString();
+		frameTwoBowlOne = bowlOneArray [1].ToString();
+		frameTwoBowlTwo = bowlTwoArray [1].ToString();
+		frameThreeBowlOne = bowlOneArray [2].ToString();
+		frameThreeBowlTwo = bowlTwoArray [2].ToString();
+		frameFourBowlOne = bowlOneArray [3].ToString();
+		frameFourBowlTwo = bowlTwoArray [3].ToString();
+		frameFiveBowlOne = bowlOneArray [4].ToString();
+		frameFiveBowlTwo = bowlTwoArray [4].ToString();
+		frameSixBowlOne = bowlOneArray [5].ToString();
+		frameSixBowlTwo = bowlTwoArray [5].ToString();
+		frameSevenBowlOne = bowlOneArray [6].ToString();
+		frameSevenBowlTwo = bowlTwoArray [6].ToString();
+		frameEightBowlOne = bowlOneArray [7].ToString();
+		frameEightBowlTwo = bowlTwoArray [7].ToString();
+		frameNineBowlOne = bowlOneArray [8].ToString();
+		frameNineBowlTwo = bowlTwoArray [8].ToString();
+		frameTenBowlOne = bowlOneArray [9].ToString();
+		frameTenBowlTwo = bowlTwoArray [9].ToString();
+
+		bowlTotalFrameOne = bowlTotal [0].ToString ();
+		bowlTotalFrameTwo = bowlTotal [1].ToString ();
+		bowlTotalFrameThree = bowlTotal [2].ToString ();
+		bowlTotalFrameFour = bowlTotal [3].ToString ();
+		bowlTotalFrameFive = bowlTotal [4].ToString ();
+		bowlTotalFrameSix = bowlTotal [5].ToString ();
+		bowlTotalFrameSeven = bowlTotal [6].ToString ();
+		bowlTotalFrameEight = bowlTotal [7].ToString ();
+		bowlTotalFrameNine = bowlTotal [8].ToString ();
+		bowlTotalFrameTen = bowlTotal [9].ToString ();
+			
+
+
+	
+
+
+	}
+
+
+	
+
+}
