@@ -1,0 +1,185 @@
+using UnityEngine;
+using System.Collections;
+
+public class HighscoreChange : MonoBehaviour {
+	int highScoreOne;
+	int highScoreTwo;
+	int highScoreThree;
+	int highScoreFour;
+	int highScoreFive;
+	int highScoreSix;
+	int highScoreSeven;
+	int highScoreEight;
+	int highScoreNine;
+	int highScoreTen;
+
+	int playerScoreOne = PlayerPrefs.GetInt ("PlayerFinalScore");
+	int playerScoreTwo = PlayerPrefs.GetInt ("PlayerTwoFinalScore");
+	int playerScoreThree = PlayerPrefs.GetInt ("PlayerThreeFinalScore");
+	int playerScoreFour = PlayerPrefs.GetInt ("PlayerFourFinalScore");
+	int playerScoreFive = PlayerPrefs.GetInt ("PlayerFiveFinalScore");
+	int playerScoreSix = PlayerPrefs.GetInt ("PlayerSixFinalScore");
+	int playerScoreSeven = PlayerPrefs.GetInt ("PlayerSevenFinalScore");
+	int playerScoreEight = PlayerPrefs.GetInt ("PlayerEightFinalScore");
+
+
+
+
+	string playerOneName = PlayerPrefs.GetString("PlayerNameHighScoreOne");
+	string playerTwoName = PlayerPrefs.GetString("PlayerNameHighScoreTwo");
+	string playerThreeName = PlayerPrefs.GetString("PlayerNameHighScoreThree");
+	string playerFourName = PlayerPrefs.GetString("PlayerNameHighScoreFour");
+	string playerFiveName = PlayerPrefs.GetString("PlayerNameHighScoreFive");
+	string playerSixName = PlayerPrefs.GetString("PlayerNameHighScoreSix");
+	string playerSevenName = PlayerPrefs.GetString("PlayerNameHighScoreSeven");
+	string playerEightName = PlayerPrefs.GetString("PlayerNameHighScoreEight");
+
+
+
+
+	// Use this for initialization
+	void Start () {
+		PlayerPrefs.SetString ("PlayerNameHighScoreOne", "Dan");
+		PlayerPrefs.SetString ("PlayerNameHighScoreTwo", "Ben");
+		PlayerPrefs.SetString ("PlayerNameHighScoreThree", "Mel");
+		PlayerPrefs.SetString ("PlayerNameHighScoreFour", "Simon");
+		PlayerPrefs.SetString ("PlayerNameHighScoreFive", "Tania");
+		PlayerPrefs.SetString ("PlayerNameHighScoreSix", "Brook");
+		PlayerPrefs.SetString ("PlayerNameHighScoreSeven", "Dennis");
+		PlayerPrefs.SetString ("PlayerNameHighScoreEight", "Mat");
+		PlayerPrefs.SetString ("PlayerNameHighScoreNine", "Tylor");
+		PlayerPrefs.SetString ("PlayerNameHighScoreTen", "Rebecca");
+
+		PlayerPrefs.SetString("PlayerOneHighScore", "280");
+		PlayerPrefs.SetString("PlayerTwoHighScore", "270");
+		PlayerPrefs.SetString("PlayerThreeHighScore", "260");
+		PlayerPrefs.SetString("PlayerFourHighScore", "250");
+		PlayerPrefs.SetString("PlayerFiveHighScore", "240");
+		PlayerPrefs.SetString("PlayerSixHighScore", "230");
+		PlayerPrefs.SetString("PlayerSevenHighScore", "220");
+		PlayerPrefs.SetString("PlayerEightHighScore", "210");
+		PlayerPrefs.SetString("PlayerNineHighScore", "100");
+		PlayerPrefs.SetString("PlayerTenHighScore", "90");
+
+
+
+		//PlayerPrefs.GetString ("PlayerNameHighScoreOne");
+		//PlayerPrefs.GetString ("PlayerOneHighScore");
+		//UpdateHighscore ();
+//		compareScore (playerScoreOne, playerOneName);
+//		compareScore (playerScoreTwo, playerTwoName);
+//		compareScore (playerScoreThree, playerThreeName);
+//		compareScore (playerScoreFour, playerFourName);
+//		compareScore (playerScoreFive, playerFiveName);
+//		compareScore (playerScoreSix, playerSixName);
+//		compareScore (playerScoreSeven, playerSevenName);
+//		compareScore (playerScoreEight, playerEightName);
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+	void UpdateHighscore(){
+		int.TryParse (PlayerPrefs.GetString ("PlayerOneHighScore"), out highScoreOne);
+		int.TryParse (PlayerPrefs.GetString ("PlayerTwoHighScore"), out highScoreTwo);
+		int.TryParse (PlayerPrefs.GetString ("PlayerThreeHighScore"), out highScoreThree);
+		int.TryParse (PlayerPrefs.GetString ("PlayerFourHighScore"), out highScoreFour);
+		int.TryParse (PlayerPrefs.GetString ("PlayerFiveHighScore"), out highScoreFive);
+		int.TryParse (PlayerPrefs.GetString ("PlayerSixHighScore"), out highScoreSix);
+		int.TryParse (PlayerPrefs.GetString ("PlayerSevenHighScore"), out highScoreSeven);
+		int.TryParse (PlayerPrefs.GetString ("PlayerEightHighScore"), out highScoreEight);
+		int.TryParse (PlayerPrefs.GetString ("PlayerNineHighScore"), out highScoreNine);
+		int.TryParse (PlayerPrefs.GetString ("PlayerTenHighScore"), out highScoreTen);
+
+
+	}
+
+	void compareScore(int playerscore, string playername){
+
+		if (playerscore > highScoreOne) {
+			PlayerPrefs.SetString("PlayerOneHighScore", playerscore.ToString());
+			PlayerPrefs.SetString("PlayerNameHighScoreOne", playername);
+				}
+		if (playerscore < highScoreOne) {
+
+			if(playerscore > highScoreTwo){
+				PlayerPrefs.SetString("PlayerTwoHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreTwo", playername);
+			}
+
+				}
+		if (playerscore < highScoreTwo) {
+			
+			if(playerscore > highScoreThree){
+				PlayerPrefs.SetString("PlayerThreeHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreThree", playername);
+			}
+			
+		}
+		if (playerscore < highScoreThree) {
+			
+			if(playerscore > highScoreFour){
+				PlayerPrefs.SetString("PlayerFourHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreFour", playername);
+			}
+			
+		}
+		if (playerscore < highScoreFour) {
+			
+			if(playerscore > highScoreFive){
+				PlayerPrefs.SetString("PlayerFiveHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreFive", playername);
+			}
+			
+		}
+		if (playerscore < highScoreFive) {
+			
+			if(playerscore > highScoreSix){
+				PlayerPrefs.SetString("PlayerSixHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreSix", playername);
+			}
+			
+		}
+		if (playerscore < highScoreSix) {
+			
+			if(playerscore > highScoreSeven){
+				PlayerPrefs.SetString("PlayerSevenHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreSeven", playername);
+			}
+			
+		}
+		if (playerscore < highScoreSeven) {
+			
+			if(playerscore > highScoreEight){
+				PlayerPrefs.SetString("PlayerEightHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreEight", playername);
+			}
+			
+		}
+		if (playerscore < highScoreEight) {
+			
+			if(playerscore > highScoreNine){
+				PlayerPrefs.SetString("PlayerNineHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreNine", playername);
+			}
+			
+		}
+
+		if (playerscore < highScoreNine) {
+			
+			if(playerscore > highScoreTen){
+				PlayerPrefs.SetString("PlayerTenHighScore", playerscore.ToString());
+				PlayerPrefs.SetString("PlayerNameHighScoreTen", playername);
+			}
+			
+		}
+
+
+
+
+
+	}
+}
